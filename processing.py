@@ -63,12 +63,6 @@ def process(state, working_directory, name):
     for item in state_list:
         cur.execute("update %s set in_state = st_intersects(%s.geom, (select state.geom from state where state.name = '%s')) where %s.state = '%s';" % (name, name, item, name, item))
         conn.commit()
-        
-def more_code():
-	"add lines!, see if this is a commit to git"
-
-def add_even_more_code():
-	'GIT HUB, DO YOU SEE MEE???!!"
     
     os.system("""pgsql2shp -f "{}_shapes/{}.shp" -h localhost -u ntapia -P postgres census "SELECT * FROM {} WHERE in_state = True" """.format(working_directory, name, name))
     
